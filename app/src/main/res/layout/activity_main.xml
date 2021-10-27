@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        tools:context=".MainActivity">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:background="@color/white"
+    >
+
+    <Button
+            android:id="@+id/button_study"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:text="@string/button_study"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:onClick="startStudy"
+            >
+
+    </Button>
+    <Button
+            android:id="@+id/button_words"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:text="@string/button_words"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:onClick="viewWords"
+    >
+
+    </Button>
+    <Button
+            android:id="@+id/button_new_word"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:text="@string/button_new_word"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:onClick="newWord"
+    >
+
+    </Button>
+    </LinearLayout>
+
+</RelativeLayout>
