@@ -25,9 +25,7 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:onClick="startStudy"
-            >
-
-    </Button>
+    />
     <Button
             android:id="@+id/button_words"
             android:layout_width="match_parent"
@@ -36,9 +34,7 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:onClick="viewWords"
-    >
-
-    </Button>
+    />
     <Button
             android:id="@+id/button_new_word"
             android:layout_width="match_parent"
@@ -47,9 +43,7 @@
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:onClick="newWord"
-    >
-
-    </Button>
+    />
     </LinearLayout>
 
 </RelativeLayout>
