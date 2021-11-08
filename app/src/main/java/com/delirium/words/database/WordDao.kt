@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.delirium.words.model.Word
 import java.util.*
 
@@ -11,6 +12,9 @@ import java.util.*
 interface WordDao {
     @Insert
     fun insertWord(word: Word)
+
+    @Update
+    fun updateWord(word: Word)
 
     @Query("SELECT * FROM Word")
     fun getWords(): LiveData<List<Word>>

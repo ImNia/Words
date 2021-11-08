@@ -32,6 +32,7 @@
             android:gravity="center"
     >
         <EditText
+                android:id="@+id/word_translate"
                 android:layout_width="280dp"
                 android:layout_height="match_parent"
                 android:hint="@string/help_translation"
@@ -47,6 +48,7 @@
 
         <Button
                 android:id="@+id/button_check"
+                android:onClick="checkAnswer"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
@@ -54,6 +56,7 @@
         />
         <Button
                 android:id="@+id/button_next"
+                android:onClick="nextWord"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"

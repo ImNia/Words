@@ -10,5 +10,5 @@ data class Word(
     val id: UUID,
     val origin: String,
     val translate: String,
-    val progress: Double
+    var progress: Double
 )

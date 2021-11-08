@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.delirium.words.database.WordDatabase
 import com.delirium.words.model.Word
 import java.util.*
+import java.util.concurrent.Executors
 
 private const val DATABASE_NAME = "usersword.db"
 
@@ -14,11 +15,18 @@ class WordRepository private constructor(context: Context) {
         context.applicationContext,
         WordDatabase::class.java,
         DATABASE_NAME,
-    ).allowMainThreadQueries().build()
+    ).build()
 
+    private val executor = Executors.newSingleThreadExecutor()
     private val wordDao = database.wordDao()
 
     fun insertWord(word: Word) = wordDao.insertWord(word)
+
+    fun updateWord(word: Word) {
+        executor.execute {
+            wordDao.updateWord(word)
+        }
+    }
 
     fun getWords() : LiveData<List<Word>> = wordDao.getWords()
 
