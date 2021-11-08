@@ -11,6 +11,7 @@ import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.delirium.words.R
 import com.delirium.words.model.Word
+import java.util.*
 
 class StudyWord : AppCompatActivity() {
     lateinit var wordOrigin: TextView
@@ -30,7 +31,29 @@ class StudyWord : AppCompatActivity() {
         wordOrigin = findViewById(R.id.word_origin)
         wordTranslate = findViewById(R.id.word_translate)
 
-        getNewWord()
+        if (savedInstanceState != null && savedInstanceState.containsKey("ID_SAVE")
+            && savedInstanceState.containsKey("ORIGIN_SAVE")
+            && savedInstanceState.containsKey("TRANSLATE_SAVE")
+            && savedInstanceState.containsKey("PROGRESS_SAVE")) {
+            currentWord = Word(
+                id = UUID.fromString(savedInstanceState.getString("ID_SAVE")),
+                origin = savedInstanceState.getString("ORIGIN_SAVE") ?: "",
+                translate = savedInstanceState.getString("TRANSLATE_SAVE") ?: "",
+                progress = savedInstanceState.getDouble("PROGRESS_SAVE")
+            )
+            wordOrigin.text = currentWord.origin
+            wordTranslate.text = currentWord.translate
+        } else {
+            getNewWord()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("ID_SAVE", currentWord.id.toString())
+        outState.putString("ORIGIN_SAVE", currentWord.origin)
+        outState.putString("TRANSLATE_SAVE", currentWord.translate)
+        outState.putDouble("PROGRESS_SAVE", currentWord.progress)
+        super.onSaveInstanceState(outState)
     }
 
     fun nextWord(view: View) {
