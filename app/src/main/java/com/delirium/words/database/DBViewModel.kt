@@ -1,11 +1,11 @@
-package com.delirium.words.study
+package com.delirium.words.database
 
 import androidx.lifecycle.ViewModel
 import com.delirium.words.WordRepository
 import com.delirium.words.model.Word
 
-class LessonViewModel : ViewModel() {
-    private val wordRepository = WordRepository.get()
+open class DBViewModel : ViewModel() {
+    val wordRepository = WordRepository.get()
     val wordListLiveData = wordRepository.getWords()
 
     fun update(word: Word) {

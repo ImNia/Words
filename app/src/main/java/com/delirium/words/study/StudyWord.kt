@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.delirium.words.R
+import com.delirium.words.database.DBViewModel
 import com.delirium.words.model.Word
 import java.util.*
 
@@ -17,8 +18,8 @@ class StudyWord : AppCompatActivity() {
     lateinit var wordOrigin: TextView
     lateinit var wordTranslate: TextView
 
-    private val wordListViewModel: LessonViewModel by lazy {
-        ViewModelProvider(this).get(LessonViewModel::class.java)
+    private val wordListViewModel: DBViewModel by lazy {
+        ViewModelProvider(this).get(DBViewModel::class.java)
     }
 
     private lateinit var currentWord: Word

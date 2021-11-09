@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.delirium.words.list.WordViewActivity
 import com.delirium.words.study.StudyWord
 import java.util.*
 
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     fun viewWords(view: View) {
         Log.i("TEST", "Press button Words")
+        val viewWordsPage = Intent(this, WordViewActivity::class.java)
+        startActivity(viewWordsPage)
     }
 
     fun newWord(view: View) {
