@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.delirium.words.R
@@ -22,7 +23,9 @@ class StudyWord : AppCompatActivity() {
         ViewModelProvider(this).get(DBViewModel::class.java)
     }
 
+    private val COUNT_WORD = 5
     private lateinit var currentWord: Word
+    private var serialNumber = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,17 +78,28 @@ class StudyWord : AppCompatActivity() {
         }
     }
 
+    fun closePage(view: View) {
+        finish()
+    }
     private fun getNewWord() {
-        wordListViewModel.wordListLiveData.observe(
-            this,
-            Observer { words ->
-                words?.let {
-                    currentWord = words.random()
-                    Log.i("LESSONSPAGE", "${currentWord.id} : ${currentWord.origin} / ${currentWord.translate} :: ${currentWord.progress}")
-                    wordOrigin.text = currentWord.origin
-                    wordTranslate.text = null
+        if (COUNT_WORD == serialNumber) {
+            setContentView(R.layout.end_lesson)
+        } else {
+            wordListViewModel.wordListLiveData.observe(
+                this,
+                Observer { words ->
+                    words?.let {
+                        currentWord = words.random()
+                        Log.i(
+                            "LESSONSPAGE",
+                            "${currentWord.id} : ${currentWord.origin} / ${currentWord.translate} :: ${currentWord.progress}"
+                        )
+                        wordOrigin.text = currentWord.origin
+                        wordTranslate.text = null
+                        serialNumber++
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 }

@@ -7,4 +7,6 @@
     <string name="button_check">Check</string>
     <string name="button_next">Next</string>
     <string name="test_word">Hello!</string>
+
+    <string name="end_text">Congratulations this is the end of the lesson!</string>
 </resources>
