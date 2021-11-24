@@ -81,6 +81,7 @@ class StudyWord : AppCompatActivity() {
     fun closePage(view: View) {
         finish()
     }
+
     private fun getNewWord() {
         if (COUNT_WORD == serialNumber) {
             setContentView(R.layout.end_lesson)

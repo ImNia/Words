@@ -1,8 +1,10 @@
 package com.delirium.words.list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.delirium.words.R
+import java.util.*
 
 class WordViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,4 +21,16 @@ class WordViewActivity : AppCompatActivity() {
                 .commit()
         }
     }
+
+    /*override fun onWordSelected(wordId: UUID) {
+        Log.i("WORD_VIEW", "selected id: $wordId")
+
+        val fragment = WordDescription.newInstance()
+
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }*/
 }
