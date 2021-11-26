@@ -1,32 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+                name="wordDescription"
+                type="com.delirium.words.model.Word"/>
+    </data>
 <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
 >
 
     <TextView
-            android:text="TextView"
+            android:text="@{wordDescription.origin}"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="64dp"
             android:id="@+id/description_word_origin"
+            tools:text="origin"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/description_word_translate" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/description_word_translate"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
-    <TextView
-            android:text="TextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/description_word_progress"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_word_translate" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center" android:textSize="34sp"
+            android:fontFamily="monospace"/>
+    <TextView
+            android:text="@{wordDescription.translate}"
+            android:layout_width="wrap_content"
+            android:layout_height="64dp"
+            android:id="@+id/description_word_translate"
+            tools:text="translate"
+            app:layout_constraintTop_toBottomOf="@+id/description_word_origin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center" android:textSize="34sp"
+            android:fontFamily="monospace"
+    />
+    <TextView
+            android:layout_width="208dp"
+            android:layout_height="182dp"
+            android:ems="10"
+            android:id="@+id/editTextNumberDecimal"
+            tools:text="0.0"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/description_word_origin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:gravity="center" android:textSize="80sp"
+            android:fontFamily="monospace"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

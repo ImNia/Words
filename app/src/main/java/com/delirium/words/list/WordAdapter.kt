@@ -9,7 +9,6 @@ import com.delirium.words.databinding.FragmentWordsBinding
 import com.delirium.words.model.Word
 import java.util.*
 
-
 class WordAdapter(val clickListener: WordListener)
     : ListAdapter<Word, WordAdapter.WordHolder>(WordDiffCallback()) {
 
@@ -52,5 +51,7 @@ class WordDiffCallback : DiffUtil.ItemCallback<Word>() {
 }
 
 class WordListener(val clickListener: (id: UUID) -> Unit) {
-    fun onClick(word: Word) = clickListener(word.id)
+    fun onClick(word: Word) {
+        clickListener(word.id)
+    }
 }

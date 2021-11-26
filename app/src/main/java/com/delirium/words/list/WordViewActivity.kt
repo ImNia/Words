@@ -21,16 +21,4 @@ class WordViewActivity : AppCompatActivity() {
                 .commit()
         }
     }
-
-    /*override fun onWordSelected(wordId: UUID) {
-        Log.i("WORD_VIEW", "selected id: $wordId")
-
-        val fragment = WordDescription.newInstance()
-
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.container, fragment)
-            .addToBackStack(null)
-            .commit()
-    }*/
 }

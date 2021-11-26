@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -25,7 +24,13 @@ class WordsListFragment : Fragment() {
         binding.wordListView = wordListViewModel
 
         val adapter = WordAdapter(WordListener { id ->
-            Toast.makeText(context, "$id", Toast.LENGTH_LONG).show()
+            val fragment = WordDescription.newInstance(id)
+            activity?.let{
+                it.supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, fragment)
+                    .addToBackStack(null)
+                    .commit()
+            }
         })
         binding.fragmentWordsList.adapter = adapter
 
