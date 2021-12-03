@@ -12,7 +12,9 @@
             android:theme="@style/Theme.Words">
         <activity android:name=".study.StudyWord">
         </activity>
-        <activity android:name=".list.WordViewActivity">
+        <activity android:name=".listNewWords.WordViewActivity">
+        </activity>
+        <activity android:name=".listUserWords.UserWordViewActivity">
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

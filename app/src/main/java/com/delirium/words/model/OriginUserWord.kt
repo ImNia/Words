@@ -4,11 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity(tableName = "word")
-data class Word(
+@Entity(tableName = "user_words")
+data class OriginUserWord(
     @PrimaryKey
     val id: UUID,
     val origin: String,
-    val translate: String,
     var progress: Double
 )

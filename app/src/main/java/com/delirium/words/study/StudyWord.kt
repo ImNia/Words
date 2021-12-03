@@ -4,15 +4,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.*
 import androidx.lifecycle.Observer
 import com.delirium.words.R
 import com.delirium.words.database.DBViewModel
-import com.delirium.words.model.Word
+import com.delirium.words.model.MeaningWord
+import com.delirium.words.model.OriginUserWord
+import com.delirium.words.model.OriginWord
 import java.util.*
 
 class StudyWord : AppCompatActivity() {
@@ -24,8 +24,10 @@ class StudyWord : AppCompatActivity() {
     }
 
     private val COUNT_WORD = 5
-    private lateinit var currentWord: Word
+    private lateinit var currentOriginWord: OriginUserWord
     private var serialNumber = 0
+    private var translateWords: MutableList<MeaningWord> = mutableListOf()
+    private var usersVersion: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,26 +39,24 @@ class StudyWord : AppCompatActivity() {
 
         if (savedInstanceState != null && savedInstanceState.containsKey("ID_SAVE")
             && savedInstanceState.containsKey("ORIGIN_SAVE")
-            && savedInstanceState.containsKey("TRANSLATE_SAVE")
             && savedInstanceState.containsKey("PROGRESS_SAVE")) {
-            currentWord = Word(
+            currentOriginWord = OriginUserWord(
                 id = UUID.fromString(savedInstanceState.getString("ID_SAVE")),
                 origin = savedInstanceState.getString("ORIGIN_SAVE") ?: "",
-                translate = savedInstanceState.getString("TRANSLATE_SAVE") ?: "",
                 progress = savedInstanceState.getDouble("PROGRESS_SAVE")
             )
-            wordOrigin.text = currentWord.origin
-            wordTranslate.text = currentWord.translate
+            wordOrigin.text = currentOriginWord.origin
+            wordTranslate.text = usersVersion
         } else {
             getNewWord()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("ID_SAVE", currentWord.id.toString())
-        outState.putString("ORIGIN_SAVE", currentWord.origin)
-        outState.putString("TRANSLATE_SAVE", currentWord.translate)
-        outState.putDouble("PROGRESS_SAVE", currentWord.progress)
+        outState.putString("ID_SAVE", currentOriginWord.id.toString())
+        outState.putString("ORIGIN_SAVE", currentOriginWord.origin)
+        outState.putString("TRANSLATE_SAVE", usersVersion)
+        outState.putDouble("PROGRESS_SAVE", currentOriginWord.progress)
         super.onSaveInstanceState(outState)
     }
 
@@ -67,37 +67,57 @@ class StudyWord : AppCompatActivity() {
 
     fun checkAnswer(view: View) {
         wordTranslate = findViewById(R.id.word_translate)
-        if (wordTranslate.text.toString() != currentWord.translate) {
+        usersVersion = wordTranslate.text.toString()
+        wordOrigin = findViewById(R.id.word_origin)
+        if (!checkTranslateWord(wordOrigin.text.toString(), usersVersion!!)) {
             val toast = Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT)
             toast.show()
         } else {
-            currentWord.progress += 0.1
-            wordListViewModel.update(currentWord)
+            currentOriginWord.progress += 0.1
+            wordListViewModel.updateUserWord(currentOriginWord.id, currentOriginWord.progress)
             val toast = Toast.makeText(this, "Correct", Toast.LENGTH_SHORT)
             toast.show()
         }
+    }
+
+    private fun checkTranslateWord(origin: String, answer: String) : Boolean {
+        for (curr in translateWords) {
+            if (curr.translate == answer && curr.origin == origin) return true
+        }
+        return false
     }
 
     fun closePage(view: View) {
         finish()
     }
 
+    fun getTranslate(word: OriginUserWord) {
+        translateWords = mutableListOf()
+        val observer = Observer<List<MeaningWord>> { translate ->
+            translate?.forEach {
+                Log.i("WORD_LIST_FRAGMENT", "Translate: ${it.translate}, Origin: ${it.origin}")
+                translateWords.add(it)
+            }
+        }
+        wordListViewModel.wordTranslation(word.origin).observe(
+            this,
+            observer
+        )
+    }
+
     private fun getNewWord() {
         if (COUNT_WORD == serialNumber) {
             setContentView(R.layout.end_lesson)
         } else {
-            wordListViewModel.wordListLiveData.observe(
+            wordListViewModel.userWordListLiveData.observe(
                 this,
                 Observer { words ->
                     words?.let {
-                        currentWord = words.random()
-                        Log.i(
-                            "LESSONSPAGE",
-                            "${currentWord.id} : ${currentWord.origin} / ${currentWord.translate} :: ${currentWord.progress}"
-                        )
-                        wordOrigin.text = currentWord.origin
+                        currentOriginWord = words.random()
+                        wordOrigin.text = currentOriginWord.origin
                         wordTranslate.text = null
                         serialNumber++
+                        getTranslate(currentOriginWord)
                     }
                 }
             )

@@ -6,14 +6,14 @@
         <data>
                 <variable
                         name="wordVariable"
-                        type="com.delirium.words.model.OriginWord"/>
+                        type="com.delirium.words.model.OriginUserWord"/>
                 <variable
                         name="clickListener"
-                        type="com.delirium.words.listNewWords.WordListener" />
+                        type="com.delirium.words.listUserWords.WordListener" />
         </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragment_container"
+        android:id="@+id/fragment_container_new"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:onClick="@{() -> clickListener.onClick(wordVariable)}"

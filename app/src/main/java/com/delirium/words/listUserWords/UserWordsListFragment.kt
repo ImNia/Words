@@ -1,4 +1,4 @@
-package com.delirium.words.list
+package com.delirium.words.listUserWords
 
 import android.os.Bundle
 import android.util.Log
@@ -14,7 +14,7 @@ import com.delirium.words.R
 import com.delirium.words.database.DBViewModel
 import com.delirium.words.databinding.FragmentWordsListBinding
 
-class WordsListFragment : Fragment() {
+class UserWordsListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val binding: FragmentWordsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_words_list, container, false)
 
@@ -24,17 +24,17 @@ class WordsListFragment : Fragment() {
         binding.wordListView = wordListViewModel
 
         val adapter = WordAdapter(WordListener { id ->
-            val fragment = WordDescription.newInstance(id)
+            val fragment = UserWordDescription.newInstance(id)
             activity?.let{
                 it.supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.fragment_container_new, fragment)
                     .addToBackStack(null)
                     .commit()
             }
         })
         binding.fragmentWordsList.adapter = adapter
 
-        wordListViewModel.wordListLiveData.observe(
+        wordListViewModel.userWordListLiveData.observe(
             viewLifecycleOwner,
             Observer { words ->
                 words?.let {
@@ -52,8 +52,8 @@ class WordsListFragment : Fragment() {
     }
 
     companion object {
-        fun newInstant(): WordsListFragment {
-            return WordsListFragment()
+        fun newInstant(): UserWordsListFragment {
+            return UserWordsListFragment()
         }
     }
 }

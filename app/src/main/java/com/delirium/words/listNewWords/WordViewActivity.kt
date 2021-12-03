@@ -1,10 +1,8 @@
-package com.delirium.words.list
+package com.delirium.words.listNewWords
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.delirium.words.R
-import java.util.*
 
 class WordViewActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

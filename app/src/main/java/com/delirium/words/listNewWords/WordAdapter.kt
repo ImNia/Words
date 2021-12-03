@@ -1,4 +1,4 @@
-package com.delirium.words.list
+package com.delirium.words.listNewWords
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,14 +6,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.delirium.words.databinding.FragmentWordsBinding
-import com.delirium.words.model.Word
+import com.delirium.words.model.OriginWord
 import java.util.*
 
 class WordAdapter(val clickListener: WordListener)
-    : ListAdapter<Word, WordAdapter.WordHolder>(WordDiffCallback()) {
+    : ListAdapter<OriginWord, WordAdapter.WordHolder>(WordDiffCallback()) {
 
     class WordHolder(val binding: FragmentWordsBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Word, clickListener: WordListener) {
+        fun bind(item: OriginWord, clickListener: WordListener) {
             binding.wordVariable = item
             binding.executePendingBindings()
             binding.clickListener = clickListener
@@ -38,20 +38,20 @@ class WordAdapter(val clickListener: WordListener)
     }
 }
 
-class WordDiffCallback : DiffUtil.ItemCallback<Word>() {
+class WordDiffCallback : DiffUtil.ItemCallback<OriginWord>() {
 
-    override fun areItemsTheSame(oldItem: Word, newItem: Word): Boolean {
+    override fun areItemsTheSame(oldItem: OriginWord, newItem: OriginWord): Boolean {
         return oldItem.id == newItem.id
     }
 
 
-    override fun areContentsTheSame(oldItem: Word, newItem: Word): Boolean {
+    override fun areContentsTheSame(oldItem: OriginWord, newItem: OriginWord): Boolean {
         return oldItem == newItem
     }
 }
 
 class WordListener(val clickListener: (id: UUID) -> Unit) {
-    fun onClick(word: Word) {
-        clickListener(word.id)
+    fun onClick(originWord: OriginWord) {
+        clickListener(originWord.id)
     }
 }

@@ -4,10 +4,10 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.*
 
-@Entity
-data class WordTest(
+@Entity(tableName = "origin_word")
+data class OriginWord(
     @PrimaryKey
-    val id: UUID = UUID.randomUUID(),
-    val title: String,
-    val date: String
+    val id: UUID,
+    val origin: String,
+    var progress: Double
 )
