@@ -15,7 +15,7 @@ import com.delirium.words.database.DBViewModel
 import com.delirium.words.databinding.FragmentWordsListBinding
 
 class WordsListFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val binding: FragmentWordsListBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_words_list, container, false)
 
         val wordListViewModel =
@@ -38,12 +38,12 @@ class WordsListFragment : Fragment() {
             viewLifecycleOwner,
             Observer { words ->
                 words?.let {
-                    Log.i("WORD_LIST_FRAGMENT", "Got word:${words.size}")
+                    Log.i("WORD_APPLICATION", "Got word:${words.size}")
                     adapter.submitList(words)
                 }
             }
         )
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         val manager = LinearLayoutManager(activity)
         binding.fragmentWordsList.layoutManager = manager

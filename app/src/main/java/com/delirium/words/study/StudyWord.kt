@@ -12,18 +12,17 @@ import com.delirium.words.R
 import com.delirium.words.database.DBViewModel
 import com.delirium.words.model.MeaningWord
 import com.delirium.words.model.OriginUserWord
-import com.delirium.words.model.OriginWord
 import java.util.*
 
 class StudyWord : AppCompatActivity() {
-    lateinit var wordOrigin: TextView
-    lateinit var wordTranslate: TextView
+    private lateinit var wordOrigin: TextView
+    private lateinit var wordTranslate: TextView
 
     private val wordListViewModel: DBViewModel by lazy {
         ViewModelProvider(this).get(DBViewModel::class.java)
     }
 
-    private val COUNT_WORD = 5
+    private val countWord = 5
     private lateinit var currentOriginWord: OriginUserWord
     private var serialNumber = 0
     private var translateWords: MutableList<MeaningWord> = mutableListOf()
@@ -32,7 +31,7 @@ class StudyWord : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_study_word)
-        Log.i("LESSONSPAGE", "Start lessonsPage")
+        Log.i("WORD_APPLICATION", "Start lessonsPage")
 
         wordOrigin = findViewById(R.id.word_origin)
         wordTranslate = findViewById(R.id.word_translate)
@@ -61,7 +60,7 @@ class StudyWord : AppCompatActivity() {
     }
 
     fun nextWord(view: View) {
-        Log.i("BUTTON", "Click nextWord Button")
+        Log.i("WORD_APPLICATION", "Click nextWord Button")
         getNewWord()
     }
 
@@ -74,7 +73,7 @@ class StudyWord : AppCompatActivity() {
             toast.show()
         } else {
             currentOriginWord.progress += 0.1
-            wordListViewModel.updateUserWord(currentOriginWord.id, currentOriginWord.progress)
+            wordListViewModel.update(currentOriginWord)
             val toast = Toast.makeText(this, "Correct", Toast.LENGTH_SHORT)
             toast.show()
         }
@@ -91,11 +90,11 @@ class StudyWord : AppCompatActivity() {
         finish()
     }
 
-    fun getTranslate(word: OriginUserWord) {
+    private fun getTranslate(word: OriginUserWord) {
         translateWords = mutableListOf()
         val observer = Observer<List<MeaningWord>> { translate ->
             translate?.forEach {
-                Log.i("WORD_LIST_FRAGMENT", "Translate: ${it.translate}, Origin: ${it.origin}")
+                Log.i("WORD_APPLICATION", "Translate: ${it.translate}, Origin: ${it.origin}")
                 translateWords.add(it)
             }
         }
@@ -106,7 +105,7 @@ class StudyWord : AppCompatActivity() {
     }
 
     private fun getNewWord() {
-        if (COUNT_WORD == serialNumber) {
+        if (countWord == serialNumber) {
             setContentView(R.layout.end_lesson)
         } else {
             wordListViewModel.userWordListLiveData.observe(

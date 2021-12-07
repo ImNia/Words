@@ -26,7 +26,7 @@ class WordDescription(val id: UUID) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.i("TAG", "Create WordDescription")
+        Log.i("WORD_APPLICATION", "Create WordDescription")
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -35,19 +35,16 @@ class WordDescription(val id: UUID) : Fragment() {
         translateDesc = view.findViewById(R.id.description_word_translate)
         progressDesc = view.findViewById(R.id.editTextNumberDecimal)
 
-//        Log.i("WORD_LIST_FRAGMENT", "${currentWord?.id} :: ${currentWord?.origin}")
-
         wordDatabase.wordLiveData(id).observe (
             viewLifecycleOwner,
             Observer { word ->
                 word?.let {
                     getTranslate(word)
-                    Log.i("WORD_LIST_FRAGMENT", "Word: ${word.id} :: ${word.origin}")
+                    Log.i("WORD_APPLICATION", "Word: ${word.id} :: ${word.origin}")
                 }
             }
         )
 
-//        Log.i("WORD_LIST_FRAGMENT", "AfterObserve ${currentWord.id} :: ${currentWord.origin}")
         return view
     }
 

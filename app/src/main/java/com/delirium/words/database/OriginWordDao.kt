@@ -16,7 +16,7 @@ interface OriginWordDao {
     fun insertWord(originWord: OriginWord)
 
     @Update
-    fun updateWord(originWord: OriginWord)
+    fun updateWord(originUserWord: OriginUserWord)
 
     @Query("SELECT * FROM origin_word")
     fun getWords(): LiveData<List<OriginWord>>
@@ -32,7 +32,4 @@ interface OriginWordDao {
 
     @Query("SELECT * FROM user_words WHERE id=(:id)")
     fun getUserWord(id: UUID): LiveData<OriginUserWord?>
-
-    @Query("UPDATE user_words SET progress=(:progress) WHERE id=(:id)")
-    fun updateUserWord(id: UUID, progress: Double)
 }

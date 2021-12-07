@@ -24,15 +24,9 @@ class WordRepository private constructor(context: Context) {
 
     fun insertWord(originWord: OriginWord) = originWordDao.insertWord(originWord)
 
-    fun updateWord(originWord: OriginWord) {
+    fun updateWord(originUserWord: OriginUserWord) {
         executor.execute {
-            originWordDao.updateWord(originWord)
-        }
-    }
-
-    fun updateUserWord(id: UUID, progress: Double) {
-        executor.execute {
-            originWordDao.updateUserWord(id, progress)
+            originWordDao.updateWord(originUserWord)
         }
     }
 
