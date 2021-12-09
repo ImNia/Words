@@ -9,4 +9,5 @@
     <string name="test_word">Hello!</string>
 
     <string name="end_text">Congratulations this is the end of the lesson!</string>
+    <string name="add_word">Add word</string>
 </resources>

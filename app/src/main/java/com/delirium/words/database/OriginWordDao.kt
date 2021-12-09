@@ -15,6 +15,12 @@ interface OriginWordDao {
     @Insert
     fun insertWord(originWord: OriginWord)
 
+    @Insert
+    fun insertUserWord(originUserWord: OriginUserWord)
+
+    @Insert
+    fun insertMeaningWord(meaningWord: MeaningWord)
+
     @Update
     fun updateWord(originUserWord: OriginUserWord)
 

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/create">
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="bottom"
+            android:layout_width="0dp"
+            android:layout_height="239dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout" app:layout_constraintVertical_bias="0.776"
+            android:id="@+id/linearLayout2" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+        <TextView
+                android:text="Origin word: "
+                android:layout_width="182dp"
+                android:layout_height="61dp"
+                android:gravity="center|right"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold|italic" tools:ignore="RtlHardcoded"/>
+        <EditText
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Word"
+                android:ems="10"
+                android:id="@+id/addNewWord"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:gravity="top"
+            android:layout_width="0dp"
+            android:layout_height="261dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/linearLayout" app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <TextView
+                android:text="Translate: "
+                android:layout_width="182dp"
+                android:layout_height="61dp"
+                android:gravity="center|right"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:textStyle="bold|italic" tools:ignore="RtlHardcoded"/>
+        <EditText
+                android:layout_width="182dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:hint="Translate"
+                android:ems="10"
+                android:id="@+id/addTranslateNewWord"/>
+    </LinearLayout>
+    <Button
+            android:text="Save"
+            android:layout_width="379dp"
+            android:layout_height="48dp"
+            android:id="@+id/createButton"
+            android:layout_weight="1"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="32dp"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

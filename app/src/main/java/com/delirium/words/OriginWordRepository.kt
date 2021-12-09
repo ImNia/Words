@@ -22,7 +22,21 @@ class WordRepository private constructor(context: Context) {
     private val executor = Executors.newSingleThreadExecutor()
     private val originWordDao = database.wordDao()
 
-    fun insertWord(originWord: OriginWord) = originWordDao.insertWord(originWord)
+    fun insertWord(originWord: OriginWord) {
+        executor.execute {
+            originWordDao.insertWord(originWord)
+        }
+    }
+    fun insertUserWord(originUserWord: OriginUserWord) {
+        executor.execute {
+            originWordDao.insertUserWord(originUserWord)
+        }
+    }
+    fun insertMeaningWord(meaningWord: MeaningWord) {
+        executor.execute {
+            originWordDao.insertMeaningWord(meaningWord)
+        }
+    }
 
     fun updateWord(originUserWord: OriginUserWord) {
         executor.execute {
