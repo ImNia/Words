@@ -46,6 +46,7 @@ class StudyWord : AppCompatActivity() {
             )
             wordOrigin.text = currentOriginWord.origin
             wordTranslate.text = usersVersion
+            serialNumber = savedInstanceState.getInt("SERIAL_NUMBER")
         } else {
             getNewWord()
         }
@@ -56,6 +57,7 @@ class StudyWord : AppCompatActivity() {
         outState.putString("ORIGIN_SAVE", currentOriginWord.origin)
         outState.putString("TRANSLATE_SAVE", usersVersion)
         outState.putDouble("PROGRESS_SAVE", currentOriginWord.progress)
+        outState.putInt("SERIAL_NUMBER", serialNumber)
         super.onSaveInstanceState(outState)
     }
 
@@ -68,16 +70,20 @@ class StudyWord : AppCompatActivity() {
         wordTranslate = findViewById(R.id.word_translate)
         usersVersion = wordTranslate.text.toString()
         wordOrigin = findViewById(R.id.word_origin)
-        if (!checkTranslateWord(wordOrigin.text.toString(), usersVersion!!)) {
-            currentOriginWord.progress -= 0.1
-            wordListViewModel.update(currentOriginWord)
-            val toast = Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT)
-            toast.show()
-        } else {
-            currentOriginWord.progress += 0.1
-            wordListViewModel.update(currentOriginWord)
-            val toast = Toast.makeText(this, "Correct", Toast.LENGTH_SHORT)
-            toast.show()
+        if (usersVersion!!.isNotEmpty()) {
+            if (!checkTranslateWord(wordOrigin.text.toString(), usersVersion!!)) {
+                if (currentOriginWord.progress > 0.0) currentOriginWord.progress -= 0.1
+                wordListViewModel.update(currentOriginWord)
+                val toast = Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT)
+                toast.show()
+            } else {
+                serialNumber++
+                currentOriginWord.progress += 0.1
+                wordListViewModel.update(currentOriginWord)
+                val toast = Toast.makeText(this, "Correct", Toast.LENGTH_SHORT)
+                toast.show()
+                if (serialNumber > countWord) setContentView(R.layout.end_lesson)
+            }
         }
     }
 

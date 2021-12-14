@@ -40,7 +40,7 @@ class UserWordDescription(val id: UUID) : Fragment() {
             Observer { word ->
                 word?.let {
                     getTranslate(word)
-                    Log.i("WORD_APPLICATION", "Word: ${word.id} :: ${word.origin}")
+                    Log.i("WORD_APPLICATION", "Word: ${word.id} :: ${word.origin}:: ${word.progress}")
                 }
             }
         )

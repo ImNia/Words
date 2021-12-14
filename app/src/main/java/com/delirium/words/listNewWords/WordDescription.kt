@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -12,13 +13,16 @@ import androidx.lifecycle.Observer
 import com.delirium.words.R
 import com.delirium.words.database.DBViewModel
 import com.delirium.words.model.MeaningWord
+import com.delirium.words.model.OriginUserWord
 import com.delirium.words.model.OriginWord
 import java.util.*
 
 class WordDescription(val id: UUID) : Fragment() {
     private lateinit var originDesc: TextView
     private lateinit var translateDesc: TextView
-    private lateinit var progressDesc: TextView
+    private lateinit var buttonAddToStudy: Button
+
+    private lateinit var currentWord: OriginWord
 
     private val wordDatabase: DBViewModel by lazy {
         ViewModelProvider(this).get(DBViewModel::class.java)
@@ -33,7 +37,7 @@ class WordDescription(val id: UUID) : Fragment() {
         val view = inflater.inflate(R.layout.word_description, container, false)
         originDesc = view.findViewById(R.id.description_word_origin)
         translateDesc = view.findViewById(R.id.description_word_translate)
-        progressDesc = view.findViewById(R.id.editTextNumberDecimal)
+        buttonAddToStudy = view.findViewById(R.id.addToStudy)
 
         wordDatabase.wordLiveData(id).observe (
             viewLifecycleOwner,
@@ -45,13 +49,17 @@ class WordDescription(val id: UUID) : Fragment() {
             }
         )
 
+        buttonAddToStudy.setOnClickListener {
+            newWord()
+        }
+
         return view
     }
 
     private fun updateData(word: OriginWord, translateWord: MeaningWord) {
         originDesc.text = word.origin
         translateDesc.text = translateWord.translate
-        progressDesc.text = word.progress.toString()
+        currentWord = word
     }
 
     private fun getTranslate(word: OriginWord) {
@@ -62,6 +70,16 @@ class WordDescription(val id: UUID) : Fragment() {
             }
         )
 
+    }
+
+    private fun newWord() {
+        Log.i("WORD_APPLICATION", "Click on button to add word")
+        val newUserWord = OriginUserWord(
+            id = currentWord.id,
+            origin = currentWord.origin,
+            progress = 0.0
+        )
+        wordDatabase.insertUserWord(newUserWord)
     }
 
     companion object {

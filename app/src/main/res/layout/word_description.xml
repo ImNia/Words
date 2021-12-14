@@ -23,35 +23,29 @@
             android:id="@+id/description_word_origin"
             tools:text="origin"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:gravity="center" android:textSize="34sp"
-            android:fontFamily="monospace"/>
+            android:fontFamily="monospace" app:layout_constraintBottom_toTopOf="@+id/description_word_translate"/>
     <TextView
             android:text="@{wordTranslate.translate}"
             android:layout_width="wrap_content"
             android:layout_height="64dp"
             android:id="@+id/description_word_translate"
             tools:text="translate"
-            app:layout_constraintTop_toBottomOf="@+id/description_word_origin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:gravity="center" android:textSize="34sp"
             android:fontFamily="monospace"
-    />
-    <TextView
-            android:layout_width="208dp"
-            android:layout_height="182dp"
-            android:ems="10"
-            android:id="@+id/editTextNumberDecimal"
-            tools:text="0.0"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/description_word_origin"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:gravity="center" android:textSize="80sp"
-            android:fontFamily="monospace"/>
+            app:layout_constraintTop_toTopOf="parent"/>
+    <Button
+            android:text="Add to study"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addToStudy"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_word_translate"
+            app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
