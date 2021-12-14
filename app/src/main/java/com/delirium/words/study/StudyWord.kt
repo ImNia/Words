@@ -69,6 +69,8 @@ class StudyWord : AppCompatActivity() {
         usersVersion = wordTranslate.text.toString()
         wordOrigin = findViewById(R.id.word_origin)
         if (!checkTranslateWord(wordOrigin.text.toString(), usersVersion!!)) {
+            currentOriginWord.progress -= 0.1
+            wordListViewModel.update(currentOriginWord)
             val toast = Toast.makeText(this, "Incorrect", Toast.LENGTH_SHORT)
             toast.show()
         } else {
@@ -112,7 +114,9 @@ class StudyWord : AppCompatActivity() {
                 this,
                 Observer { words ->
                     words?.let {
-                        currentOriginWord = words.random()
+                        do {
+                            currentOriginWord = words.random()
+                        } while (currentOriginWord.progress > 1)
                         wordOrigin.text = currentOriginWord.origin
                         wordTranslate.text = null
                         serialNumber++

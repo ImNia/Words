@@ -13,7 +13,6 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical"
-            android:background="@color/white"
     >
 
     <Button
@@ -22,7 +21,6 @@
             android:layout_height="160dp"
             android:text="@string/button_study"
             android:textColor="@color/black"
-            android:backgroundTint="@color/white"
             android:onClick="startStudy"
     />
     <Button
@@ -31,7 +29,6 @@
             android:layout_height="160dp"
             android:text="@string/button_words"
             android:textColor="@color/black"
-            android:backgroundTint="@color/white"
             android:onClick="viewWords"
     />
     <Button
@@ -40,7 +37,6 @@
             android:layout_height="160dp"
             android:text="@string/button_new_word"
             android:textColor="@color/black"
-            android:backgroundTint="@color/white"
             android:onClick="newWord"
     />
     </LinearLayout>

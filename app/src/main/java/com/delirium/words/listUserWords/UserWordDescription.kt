@@ -49,9 +49,10 @@ class UserWordDescription(val id: UUID) : Fragment() {
     }
 
     private fun updateData(word: OriginUserWord, translateWord: MeaningWord) {
+        val progress = if ( word.progress > 1 ) 100 else word.progress * 100
         originDesc.text = word.origin
         translateDesc.text = translateWord.translate
-        progressDesc.text = word.progress.toString()
+        progressDesc.text = progress.toInt().toString() + "%"
     }
 
     private fun getTranslate(word: OriginUserWord) {
